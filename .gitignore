@@ -1,1 +1,4 @@
 project 8 script
+.devcontainer/
+venv/
+data2
