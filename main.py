@@ -8,7 +8,7 @@ import copy
 from project8 import CashFlowModel
 
 # App Title
-st.title("Streamlit App for Cash Flow Modeling")
+st.title("Nnamdi's Streamlit App for Cash Flow Modeling")
 
 # File uploader
 uploaded_file = st.file_uploader("Upload your Excel file", type=["xlsx"])
