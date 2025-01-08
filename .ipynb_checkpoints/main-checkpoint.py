@@ -1,58 +1,72 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-
 import streamlit as st
 import pandas as pd
 import copy
 from project8 import CashFlowModel
 
+import os
+#import streamlit.web.bootstrap
+
+
+if __name__ == "__main__":
+    # Get the PORT environment variable (default to 8501 if not set)
+    port = int(os.environ.get("PORT", 8501))
+    
+    # Run the Streamlit app
+    os.system(f"streamlit run main.py --server.port {port} --server.address 0.0.0.0")
+
+
+
+
+
 # App Title
-st.title("Streamlit App for Cash Flow Modeling")
+st.title("Nnamdi's Streamlit App for Cash Flow Modeling")
+
+# Display a screenshot of the expected data format
+st.write("### Expected Data Format")
+st.image("data_format_example.png", caption="Expected format of the data file.")
 
 # File uploader
-uploaded_file = st.file_uploader("Upload your Excel file", type=["xlsx"])
+st.write("### Upload Your Excel File")
+uploaded_file = st.file_uploader("Upload your Excel file (optional)", type=["xlsx"])
 
+# Load default data if no file is uploaded
 if uploaded_file:
-    # Read the uploaded Excel file into a Pandas DataFrame
     data = pd.read_excel(uploaded_file)
     st.write("Uploaded Data:")
-    st.dataframe(data)
+else:
+    st.write("No file uploaded. Using the default data.xlsx.")
+    data = pd.read_excel("data.xlsx")
 
-    # Instantiate the CashFlowModel
-    model = CashFlowModel()
+# Display the loaded data
+st.dataframe(data)
 
-    # Load the data into the model
-    for index, row in data.iterrows():
-        model.add_entry(
-            year=row["Year"],
-            interest_rate=row["Interest Rate"],
-            cash_flow=row["Cash Flow"],
-        )
-    # Save the original data
+# Instantiate the CashFlowModel
+model = CashFlowModel()
+
+# Load the data into the model
+for index, row in data.iterrows():
+    model.add_entry(
+        year=row["Year"],
+        interest_rate=row["Interest Rate"],
+        cash_flow=row["Cash Flow"],
+    )
     model.original_data = copy.deepcopy(model.data)
 
-    # Display the original present value
-    original_present_value = model.calculate_present_value()
-    st.write("Present Value of Cash Flows:")
-    st.write(f"£{original_present_value:,.2f}")
+# Calculate Present Value
+present_value = model.calculate_present_value()
+st.write("Present Value of Cash Flows:")
+st.write(f"£{present_value:,.2f}")
 
-    # Sensitivity Testing
-    st.write("Sensitivity Testing:")
-    interest_rate_factor = st.slider(
-        "Interest Rate Adjustment Factor", min_value=0.5, max_value=1.5, value=1.0, step=0.1
-    )
-    cash_flow_factor = st.slider(
-        "Cash Flow Adjustment Factor", min_value=0.5, max_value=1.5, value=1.0, step=0.1
-    )
-
-    # Reset data to original state before applying sensitivity adjustments
-    model.reset_data()
-
-    # Apply sensitivity testing and calculate adjusted present value
-    adjusted_present_value = model.sensitivity_test(interest_rate_factor, cash_flow_factor)
-    st.write("Adjusted Present Value:")
-    st.write(f"£{adjusted_present_value:,.2f}")
-
-else:
-    st.write("Please upload a file to continue.")
+# Sensitivity Testing
+st.write("### Sensitivity Testing")
+interest_rate_factor = st.slider(
+    "Interest Rate Adjustment Factor", min_value=0.5, max_value=1.5, value=1.0, step=0.1
+)
+cash_flow_factor = st.slider(
+    "Cash Flow Adjustment Factor", min_value=0.5, max_value=1.5, value=1.0, step=0.1
+)
+new_present_value = model.sensitivity_test(interest_rate_factor, cash_flow_factor)
+st.write(f"Adjusted Present Value: £{new_present_value:,.2f}")

@@ -7,7 +7,7 @@ import copy
 from project8 import CashFlowModel
 
 import os
-import streamlit.web.bootstrap
+#import streamlit.web.bootstrap
 
 
 if __name__ == "__main__":
