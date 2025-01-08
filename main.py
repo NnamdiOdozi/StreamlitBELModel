@@ -7,16 +7,10 @@ import copy
 from project8 import CashFlowModel
 
 import os
-import streamlit.web.bootstrap
-
 
 if __name__ == "__main__":
-    # Get the PORT environment variable (default to 8501 if not set)
-    port = int(os.environ.get("PORT", 8501))
-    
-    # Run the Streamlit app
+    port = int(os.environ.get("PORT", 8080))  # Default to 8080 if PORT is not set
     os.system(f"streamlit run main.py --server.port {port} --server.address 0.0.0.0")
-
 
 
 
