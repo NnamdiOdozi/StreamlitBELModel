@@ -6,6 +6,27 @@ import pandas as pd
 import copy
 from project8 import CashFlowModel
 
+import os
+import streamlit.web.bootstrap
+
+if __name__ == "__main__":
+    # Get the PORT environment variable (default to 8501 if not set)
+    port = int(os.environ.get("PORT", 8501))
+    
+    # Run the Streamlit app
+    streamlit.web.bootstrap.run(
+        file_path="main.py",  # Replace with the name of your script
+        command_line=None,
+        args=[],
+        flag_options={
+            "server.port": port,
+            "server.address": "0.0.0.0"  # Listen on all network interfaces
+        },
+    )
+
+
+
+
 # App Title
 st.title("Nnamdi's Streamlit App for Cash Flow Modeling")
 
