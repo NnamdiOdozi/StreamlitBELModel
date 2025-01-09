@@ -17,7 +17,7 @@ if __name__ == "__main__":
     os.system(f"streamlit run main.py --server.port {port} --server.address 0.0.0.0")
 
 nnamdi = 10 #This is test line 2
- 
+nnamdi2 = 20 #This is test 3 
 
 # App Title
 st.title("Nnamdi's Streamlit App for Cash Flow Modeling")
