@@ -16,8 +16,8 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))  # Default to 8080 if PORT is not set
     os.system(f"streamlit run main.py --server.port {port} --server.address 0.0.0.0")
 
-
-
+nnamdi = 10 #This is test line 2
+ 
 
 # App Title
 st.title("Nnamdi's Streamlit App for Cash Flow Modeling")
