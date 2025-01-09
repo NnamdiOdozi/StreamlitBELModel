@@ -18,4 +18,5 @@ ENV PORT 8080
 EXPOSE 8080
 
 # Start the app
-CMD ["streamlit", "run", "main.py", "--server.port=${PORT}", "--server.address=0.0.0.0"]
+CMD ["sh", "-c", "streamlit run main.py --server.port=$PORT --server.address=0.0.0.0"]
+
