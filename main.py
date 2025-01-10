@@ -19,6 +19,8 @@ if __name__ == "__main__":
 nnamdi = 10 #This is test line 2
 nnamdi2 = 20 #This is test 3 
 nnamdi3 = 30 #This is test 4
+nnamdi4 = 30 #This is test 5
+
 
 # App Title
 st.title("Nnamdi's Streamlit App for Cash Flow Modeling")
